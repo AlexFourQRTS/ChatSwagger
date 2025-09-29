@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+    <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>WebSocket Test</h1>
+    <div id="status">Подключение...</div>
+    <div id="messages"></div>
+    
+    <script>
+        const socket = io('http://localhost:5000');
+        
+        socket.on('connect', () => {
+            document.getElementById('status').innerHTML = '✅ WebSocket подключен на порту 5000!';
+            console.log('✅ WebSocket подключен на порту 5000!');
+            
+            // Тест отправки сообщения
+            socket.emit('createMessage', { test: 'data from browser' });
+        });
+        
+        socket.on('disconnect', () => {
+            document.getElementById('status').innerHTML = '❌ WebSocket отключен';
+            console.log('❌ WebSocket отключен');
+        });
+        
+        socket.on('connect_error', (error) => {
+            document.getElementById('status').innerHTML = '❌ Ошибка: ' + error.message;
+            console.log('❌ Ошибка подключения:', error);
+        });
+        
+        // Слушаем ответы от сервера
+        socket.on('createMessage', (data) => {
+            document.getElementById('messages').innerHTML += '<p>Ответ сервера: ' + JSON.stringify(data) + '</p>';
+            console.log('Ответ сервера:', data);
+        });
+    </script>
+</body>
+</html>

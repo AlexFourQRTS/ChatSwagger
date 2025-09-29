@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: chat_app_postgres
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "${POSTGRES_PORT}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - chat_network
+
+  # server:
+  #   build: ./server
+  #   container_name: chat_app_server
+  #   environment:
+  #     DATABASE_URL: ${DATABASE_URL}
+  #     JWT_SECRET: ${JWT_SECRET}
+  #     JWT_REFRESH_SECRET: ${JWT_REFRESH_SECRET}
+  #     LOG_LEVEL: ${LOG_LEVEL}
+  #     PORT: ${SERVER_PORT}
+  #     NODE_ENV: ${NODE_ENV}
+  #   ports:
+  #     - "${SERVER_PORT}:${SERVER_PORT}"
+  #   depends_on:
+  #     - postgres
+  #   networks:
+  #     - chat_network
+
+volumes:
+  postgres_data:
+
+networks:
+  chat_network:
+    driver: bridge
