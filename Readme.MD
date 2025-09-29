@@ -8,9 +8,9 @@ npx prisma migrate dev
 
 npx prisma migrate deploy
 
-Подготовлен бэк для разработки
+npx prisma generate
 
-Подготовлен Фронт для разработки
+npx prisma migrate generate
 
-Подключена призма
+
 

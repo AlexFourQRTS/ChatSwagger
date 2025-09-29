@@ -1,4 +1,5 @@
-export class UserDto {
+
+export interface User {
     id: string;
     email: string;
     isOnline: boolean;

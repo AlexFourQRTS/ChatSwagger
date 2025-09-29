@@ -8,7 +8,7 @@ import {
   NotFoundException
 } from '@nestjs/common';
 
-import { UserDto } from './dto/user.dto'
+
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
